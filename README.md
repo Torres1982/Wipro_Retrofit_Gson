@@ -6,8 +6,8 @@
 3. XML
 4. Retrofit API
 5. Gson API
-6. JSONPlaceholder API
+6. JSONPlaceholder mock API
 
 ### Assessment Description:
 
-The aim of this assessment is to fetch data over the network (JSON Object) using various supporting APIs such as Retrofit or Gson.
+The aim of this assessment is to fetch data over the network (JSON Object) using various supporting REST based APIs such as Retrofit or Gson.
