@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Retrofit Gson</string>
+    <string name="posts_number_hint">Number of Posts to Load</string>
+    <string name="button_text">Load Posts</string>
+</resources>
