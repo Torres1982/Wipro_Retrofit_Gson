@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     EditText postsNumberEditText;
     Button loadDataButton;
-    final int MAX_NUMBER_OF_POSTS = 10;
+    final int MAX_NUMBER_OF_POSTS = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
