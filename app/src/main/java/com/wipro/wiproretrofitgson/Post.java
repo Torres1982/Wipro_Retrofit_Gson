@@ -3,53 +3,62 @@ package com.wipro.wiproretrofitgson;
 import com.google.gson.annotations.SerializedName;
 
 public class Post {
-    private int userId;
 
-    @SerializedName("id")
-    private int postId;
-
-    @SerializedName("title")
-    private String postTitle;
-
-    @SerializedName("body")
-    private String postBody;
+    @SerializedName("name")
+    private String movieName;
+    @SerializedName("realname")
+    private String realName;
+    private String team;
+    @SerializedName("firstappearance")
+    private String firstAppearance;
+    @SerializedName("createdby")
+    private String createdBy;
+    private String publisher;
+    @SerializedName("imageurl")
+    private String imageUrl;
+    @SerializedName("bio")
+    private String biography;
 
     // *********** Create a Constructor ************
-    public Post(int userId, int id, String title, String body) {
-        this.userId = userId;
-        this.postId = id;
-        this.postTitle = title;
-        this.postBody = body;
+    public Post(String name, String realName, String team, String firstAppearance, String createdBy, String publisher, String imageUrl, String bio) {
+        this.movieName = name;
+        this.realName = realName;
+        this.team = team;
+        this.firstAppearance = firstAppearance;
+        this.createdBy =  createdBy;
+        this.publisher = publisher;
+        this.imageUrl = imageUrl;
+        this.biography = bio;
     }
 
     // ************** Getter methods ****************
-    public int getUserId() {
-        return userId;
-    }
-    public int getPostId() {
-        return postId;
-    }
-    public String getPostTitle() {
-        return postTitle;
-    }
-    public String getPostBody() {
-        return postBody;
+    String getMovieName() {
+        return movieName;
     }
 
-    // ************** Setter methods ****************
-    public void setUserId(int userId) {
-        this.userId = userId;
+    String getRealName() {
+        return realName;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    String getTeam() {
+        return team;
     }
 
-    public void setPostTitle(String postTitle) {
-        this.postTitle = postTitle;
+    String getFirstAppearance() {
+        return firstAppearance;
     }
 
-    public void setPostBody(String postBody) {
-        this.postBody = postBody;
+    String getCreatedBy() { return createdBy; }
+
+    String getPublisher() {
+        return publisher;
+    }
+
+    String getImageUrl() {
+        return imageUrl;
+    }
+
+    String getBiography() {
+        return biography;
     }
 }

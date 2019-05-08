@@ -25,4 +25,9 @@
         android:layout_marginTop="@dimen/margin_twenty"
         android:paddingStart="@dimen/margin_twenty"
         android:paddingEnd="@dimen/margin_twenty" />
+    <ListView
+        android:id="@+id/list_view_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_twenty" />
 </LinearLayout>
