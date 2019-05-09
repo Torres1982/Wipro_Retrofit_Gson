@@ -3,4 +3,6 @@
     <dimen name="divider_one">1dp</dimen>
     <dimen name="margin_ten">10dp</dimen>
     <dimen name="margin_twenty">20dp</dimen>
+    <dimen name="text_size_sixteen">16sp</dimen>
+    <dimen name="text_size_twenty_eight">28sp</dimen>
 </resources>

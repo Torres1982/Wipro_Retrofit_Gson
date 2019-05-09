@@ -4,8 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGreen"
+    android:background="@color/darkGrey"
     android:orientation="vertical"
     tools:context=".PostActivity">
-
+    <TextView
+        android:id="@+id/text_view_post_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/post_details"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_twenty_eight"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_twenty" />
+    <TextView
+        android:id="@+id/text_view_post_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sixteen"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty" />
+    <TextView
+        android:id="@+id/text_view_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sixteen"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty" />
+    <TextView
+        android:id="@+id/text_view_post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sixteen"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty" />
+    <TextView
+        android:id="@+id/text_view_post_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sixteen"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty" />
 </LinearLayout>

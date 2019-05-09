@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -116,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < numberOfPosts; i++) {
                         int postId = postsList.get(i).getPostId();
                         String postTitle = postsList.get(i).getPostTitle();
-                        String postBody = postsList.get(i).getPostBody();
-                        posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle + "\nBODY:\n" + postBody;
+                        posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle;
                     }
 
                     // Set Adapter for the List View to scroll through the List of fetched Posts
@@ -130,13 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     linearLayout.setBackgroundColor(Color.DKGRAY);
                     Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
                 } else {
-                    try {
-                        if (response.errorBody() != null) {
-                            Log.i("TAG_ON_RESPONSE_ERROR", response.errorBody().string() + "\nResponded with a Code " + response.code());
-                        }
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
+                    Log.i("TAG_ON_RESPONSE_ERROR", "Responded with a Status Code " + response.code());
                 }
             }
 
@@ -154,18 +146,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int postId = postsList.get(position).getPostId();
+                int postUserId = postsList.get(position).getPostUserId();
                 String postTitle = postsList.get(position).getPostTitle();
                 String postBody = postsList.get(position).getPostBody();
 
-                startActivityWithBundle(postId, postTitle, postBody);
+                startActivityWithBundle(postId, postUserId, postTitle, postBody);
             }
         });
     }
 
     // Start new Activity to display a List View item's details
-    private void startActivityWithBundle(int id, String title, String body) {
+    private void startActivityWithBundle(int id, int userId, String title, String body) {
         Intent sendIntent = new Intent(MainActivity.this, PostActivity.class);
         sendIntent.putExtra("post_id", id);
+        sendIntent.putExtra("post_user_id", userId);
         sendIntent.putExtra("post_title", title);
         sendIntent.putExtra("post_body", body);
         startActivity(sendIntent);
