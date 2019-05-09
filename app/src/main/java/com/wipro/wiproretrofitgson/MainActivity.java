@@ -1,5 +1,6 @@
 package com.wipro.wiproretrofitgson;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Button loadDataButton;
     ListView postsListView;
     LinearLayout linearLayout;
+    List<Post> postsList;
     final int MAX_NUMBER_OF_POSTS = 15;
 
     @Override
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
                 if (response.isSuccessful()) { // onResponse is called even if there is a failure ( status code 404, ...)
-                    List<Post> postsList = response.body();
+                    postsList = response.body();
                     int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
                     String[] posts = new String[numberOfPosts];
 
@@ -149,8 +151,15 @@ public class MainActivity extends AppCompatActivity {
         postsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "LIST VIEW CLICKED: " + position, Toast.LENGTH_SHORT).show();
+                int postId = postsList.get(position).getPostId();
+                String postTitle = postsList.get(position).getPostTitle();
+                String postBody = postsList.get(position).getPostBody();
+                Activity activity = new Activity();
             }
         });
+    }
+
+    private void startActivityWithBundle() {
+        Toast.makeText(MainActivity.this, "New Activity Started!", Toast.LENGTH_SHORT).show();
     }
 }
