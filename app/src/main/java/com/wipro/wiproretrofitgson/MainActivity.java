@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void fetchPostsFromInternet() {
         Retrofit retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(PostInterface.BASE_URL)
-                // GsonConverterFactory converts directly json data to object
+                // GsonConverterFactory converts directly JSON data to an Object
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PostInterface serviceInterface = retrofitBuilder.create(PostInterface.class);
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         serviceCall.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
-                if (response.isSuccessful()) { // onResponse is called even if there is a failure (code 403, ...)
+                if (response.isSuccessful()) { // onResponse is called even if there is a failure ( status code 404, ...)
                     List<Post> postsList = response.body();
                     int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
                     String[] posts = new String[numberOfPosts];
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Set Adapter for the List View to scroll through the List of fetched Posts
                     postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
-
+                    getSinglePostDetails();
                     Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
                     postsNumberEditText.setEnabled(false);
                     setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
@@ -139,6 +140,16 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<List<Post>> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, "ERROR: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.i("TAG_ON_FAILURE_ERROR", t.getMessage());
+            }
+        });
+    }
+
+    // Register a Listener on List View click
+    private void getSinglePostDetails() {
+        postsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "LIST VIEW CLICKED: " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

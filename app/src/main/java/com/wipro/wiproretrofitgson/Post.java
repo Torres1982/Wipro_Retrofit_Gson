@@ -19,7 +19,7 @@ public class Post {
     }
 
     // ************** Getter methods ****************
-    public int getPostId() { return postId; }
-    public String getPostTitle() { return postTitle; }
-    public String getPostBody() { return postBody; }
+    int getPostId() { return postId; }
+    String getPostTitle() { return postTitle; }
+    String getPostBody() { return postBody; }
 }
