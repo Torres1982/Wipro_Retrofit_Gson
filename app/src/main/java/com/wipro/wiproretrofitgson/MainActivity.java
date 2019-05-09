@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -104,24 +105,34 @@ public class MainActivity extends AppCompatActivity {
         serviceCall.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
-                List<Post> postsList = response.body();
-                int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
-                String[] posts = new String[numberOfPosts];
+                if (response.isSuccessful()) { // onResponse is called even if there is a failure
+                    List<Post> postsList = response.body();
+                    int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
+                    String[] posts = new String[numberOfPosts];
 
-                for (int i = 0; i < numberOfPosts; i++) {
-                    int postId = postsList.get(i).getPostId();
-                    String postTitle = postsList.get(i).getPostTitle();
-                    String postBody = postsList.get(i).getPostBody();
-                    posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle + "\nBODY:\n" + postBody;
+                    for (int i = 0; i < numberOfPosts; i++) {
+                        int postId = postsList.get(i).getPostId();
+                        String postTitle = postsList.get(i).getPostTitle();
+                        String postBody = postsList.get(i).getPostBody();
+                        posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle + "\nBODY:\n" + postBody;
+                    }
+
+                    // Set Adapter for the List View to scroll through the List of fetched Posts
+                    postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
+
+                    Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
+                    postsNumberEditText.setEnabled(false);
+                    setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
+                    linearLayout.setBackgroundColor(Color.DKGRAY);
+                } else {
+                    try {
+                        if (response.errorBody() != null) {
+                            Log.i("TAG_ON_RESPONSE_ERROR", response.errorBody().string());
+                        }
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
                 }
-
-                // Set Adapter for the List View to scroll through the List of fetched Posts
-                postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
-
-                Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
-                postsNumberEditText.setEnabled(false);
-                setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
-                linearLayout.setBackgroundColor(Color.DKGRAY);
             }
 
             @Override
