@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         serviceCall.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
-                if (response.isSuccessful()) { // onResponse is called even if there is a failure
+                if (response.isSuccessful()) { // onResponse is called even if there is a failure (code 403, ...)
                     List<Post> postsList = response.body();
                     int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
                     String[] posts = new String[numberOfPosts];
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     try {
                         if (response.errorBody() != null) {
-                            Log.i("TAG_ON_RESPONSE_ERROR", response.errorBody().string());
+                            Log.i("TAG_ON_RESPONSE_ERROR", response.errorBody().string() + "\nResponded with a Code " + response.code());
                         }
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<List<Post>> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, "ERROR: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("TAG_ON_FAILURE", t.getMessage());
+                Log.i("TAG_ON_FAILURE_ERROR", t.getMessage());
             }
         });
     }
