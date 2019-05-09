@@ -1,6 +1,6 @@
 package com.wipro.wiproretrofitgson;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -122,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
 
                     // Set Adapter for the List View to scroll through the List of fetched Posts
                     postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
+
                     getSinglePostDetails();
-                    Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
+
                     postsNumberEditText.setEnabled(false);
                     setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
                     linearLayout.setBackgroundColor(Color.DKGRAY);
+                    Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         if (response.errorBody() != null) {
@@ -154,12 +156,18 @@ public class MainActivity extends AppCompatActivity {
                 int postId = postsList.get(position).getPostId();
                 String postTitle = postsList.get(position).getPostTitle();
                 String postBody = postsList.get(position).getPostBody();
-                Activity activity = new Activity();
+
+                startActivityWithBundle(postId, postTitle, postBody);
             }
         });
     }
 
-    private void startActivityWithBundle() {
-        Toast.makeText(MainActivity.this, "New Activity Started!", Toast.LENGTH_SHORT).show();
+    // Start new Activity to display a List View item's details
+    private void startActivityWithBundle(int id, String title, String body) {
+        Intent sendIntent = new Intent(MainActivity.this, PostActivity.class);
+        sendIntent.putExtra("post_id", id);
+        sendIntent.putExtra("post_title", title);
+        sendIntent.putExtra("post_body", body);
+        startActivity(sendIntent);
     }
 }
