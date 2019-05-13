@@ -1,6 +1,5 @@
 package com.wipro.wiproretrofitgson;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -17,14 +16,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import com.wipro.wiproretrofitgson.utility.RetrofitUtility;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private EditText postsNumberEditText;
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Display the Posts fetched by calling the Retrofit API
     public void fetchPostsFromInternet() {
-        Retrofit retrofitBuilder = getRetrofitClient();
+        Retrofit retrofitBuilder = RetrofitUtility.getRetrofitClient();
         PostInterface serviceInterface = retrofitBuilder.create(PostInterface.class);
         Call<List<Post>> serviceCall = serviceInterface.getPosts();
 
@@ -164,14 +161,5 @@ public class MainActivity extends AppCompatActivity {
         sendIntent.putExtra("post_title", title);
         sendIntent.putExtra("post_body", body);
         startActivity(sendIntent);
-    }
-
-    // Create a Retrofit Client
-    public static Retrofit getRetrofitClient() {
-        return new Retrofit.Builder()
-                .baseUrl(PostInterface.BASE_URL)
-                // GsonConverterFactory converts directly JSON data to an Object
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
     }
 }

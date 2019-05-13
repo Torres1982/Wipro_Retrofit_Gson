@@ -22,8 +22,14 @@ public class Post {
     }
 
     // ************** Getter methods ****************
-    int getPostId() { return postId; }
-    int getPostUserId() { return postUserId; }
-    String getPostTitle() { return postTitle; }
-    String getPostBody() { return postBody; }
+    public int getPostId() { return postId; }
+    public int getPostUserId() { return postUserId; }
+    public String getPostTitle() { return postTitle; }
+    public String getPostBody() { return postBody; }
+
+    // ************** Setter methods ****************
+    public void setPostId(int id) { this.postId = id; }
+    public void setPostUserId(int userId) { this.postUserId = userId; }
+    public void setPostTitle(String title) { this.postTitle = title; }
+    public void setPostBody(String body) { this.postBody = body; }
 }
