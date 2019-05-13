@@ -1,5 +1,6 @@
 package com.wipro.wiproretrofitgson;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -26,12 +27,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    EditText postsNumberEditText;
-    Button loadDataButton;
-    ListView postsListView;
-    LinearLayout linearLayout;
-    List<Post> postsList;
-    final int MAX_NUMBER_OF_POSTS = 15;
+    private EditText postsNumberEditText;
+    private Button loadDataButton;
+    private ListView postsListView;
+    private LinearLayout linearLayout;
+    private List<Post> postsList;
+    private final static int MAX_NUMBER_OF_POSTS = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Display the Posts fetched by calling the Retrofit API
     public void fetchPostsFromInternet() {
-        Retrofit retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(PostInterface.BASE_URL)
-                // GsonConverterFactory converts directly JSON data to an Object
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofitBuilder = getRetrofitClient();
         PostInterface serviceInterface = retrofitBuilder.create(PostInterface.class);
         Call<List<Post>> serviceCall = serviceInterface.getPosts();
 
@@ -163,5 +160,14 @@ public class MainActivity extends AppCompatActivity {
         sendIntent.putExtra("post_title", title);
         sendIntent.putExtra("post_body", body);
         startActivity(sendIntent);
+    }
+
+    // Create a Retrofit Client
+    public static Retrofit getRetrofitClient() {
+        return new Retrofit.Builder()
+                .baseUrl(PostInterface.BASE_URL)
+                // GsonConverterFactory converts directly JSON data to an Object
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 }

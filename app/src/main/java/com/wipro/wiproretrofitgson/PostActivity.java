@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class PostActivity extends AppCompatActivity {
-    TextView textViewPostId, textViewUserId, textViewPostTitle, textViewPostBody;
+    private TextView textViewPostId, textViewUserId, textViewPostTitle, textViewPostBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
