@@ -109,21 +109,25 @@ public class MainActivity extends AppCompatActivity {
                     int numberOfPosts = Integer.parseInt(postsNumberEditText.getText().toString());
                     String[] posts = new String[numberOfPosts];
 
-                    for (int i = 0; i < numberOfPosts; i++) {
-                        int postId = postsList.get(i).getPostId();
-                        String postTitle = postsList.get(i).getPostTitle();
-                        posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle;
+                    if (postsList != null) {
+                        for (int i = 0; i < numberOfPosts; i++) {
+                            int postId = postsList.get(i).getPostId();
+                            String postTitle = postsList.get(i).getPostTitle();
+                            posts[i] = "POST ID: " + postId + "\nTITLE:\n" + postTitle;
+                        }
+
+                        // Set Adapter for the List View to scroll through the List of fetched Posts
+                        postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
+
+                        getSinglePostDetails();
+
+                        postsNumberEditText.setEnabled(false);
+                        setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
+                        linearLayout.setBackgroundColor(Color.DKGRAY);
+                        Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "RESPONSE - THERE ARE NO POSTS AVAILABLE!", Toast.LENGTH_SHORT).show();
                     }
-
-                    // Set Adapter for the List View to scroll through the List of fetched Posts
-                    postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
-
-                    getSinglePostDetails();
-
-                    postsNumberEditText.setEnabled(false);
-                    setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
-                    linearLayout.setBackgroundColor(Color.DKGRAY);
-                    Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
                 } else {
                     Log.i("TAG_ON_RESPONSE_ERROR", "Responded with a Status Code " + response.code());
                 }
