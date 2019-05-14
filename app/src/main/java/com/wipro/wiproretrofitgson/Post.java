@@ -21,6 +21,12 @@ public class Post {
         this.postBody = body;
     }
 
+    public Post(int userId, String title, String body) {
+        this.postUserId = userId;
+        this.postTitle = title;
+        this.postBody = body;
+    }
+
     // ************** Getter methods ****************
     public int getPostId() { return postId; }
     public int getPostUserId() { return postUserId; }

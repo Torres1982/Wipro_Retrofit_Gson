@@ -1,9 +1,6 @@
 package com.wipro.wiproretrofitgson.utility;
 
-import com.wipro.wiproretrofitgson.Post;
 import com.wipro.wiproretrofitgson.PostInterface;
-import java.util.List;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,7 +15,7 @@ public class RetrofitUtility {
     }
 
     // Create a Service Call
-    public static Call<List<Post>> getRetrofitServiceCall() {
-        return getRetrofitClient().create(PostInterface.class).getPosts();
+    public static PostInterface getRetrofitServiceCall() {
+        return getRetrofitClient().create(PostInterface.class);
     }
 }

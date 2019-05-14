@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Display the Posts fetched by calling the Retrofit API
     public void fetchPostsFromInternet() {
-        Call<List<Post>> serviceCall = RetrofitUtility.getRetrofitServiceCall();
+        Call<List<Post>> serviceCallGetRequest = RetrofitUtility.getRetrofitServiceCall().getPosts();
 
-        serviceCall.enqueue(new Callback<List<Post>>() {
+        serviceCallGetRequest.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
                 if (response.isSuccessful()) { // onResponse is called even if there is a failure ( status code 404, ...)

@@ -4,4 +4,6 @@
     <string name="button_text">Load Posts</string>
     <string name="post_details"><u>Post Details:</u></string>
     <string name="send_post">Send Post</string>
+    <string name="title_hint">Post Title</string>
+    <string name="body_hint">Post Body</string>
 </resources>

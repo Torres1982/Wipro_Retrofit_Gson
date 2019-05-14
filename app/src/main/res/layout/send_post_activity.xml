@@ -4,8 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkGrey"
+    android:background="@color/lightGreen"
     android:orientation="vertical"
     tools:context=".SendPostActivity">
-
+    <EditText
+        android:id="@+id/edit_text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/title_hint"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/edit_text_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/body_hint"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:importantForAutofill="no" />
+    <Button
+        android:id="@+id/button_send_post_request_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:paddingStart="@dimen/margin_twenty"
+        android:paddingEnd="@dimen/margin_twenty" />
 </LinearLayout>
