@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity {
     private EditText postsNumberEditText;
     private Button loadDataButton;
+    private Button sendPostButton;
     private ListView postsListView;
     private LinearLayout linearLayout;
     private List<Post> postsList;
@@ -38,22 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
         postsNumberEditText = findViewById(R.id.edit_text_id);
         loadDataButton = findViewById(R.id.button_id);
+        sendPostButton = findViewById(R.id.button_post_id);
         postsListView = findViewById(R.id.list_view_id);
         linearLayout = findViewById(R.id.linear_layout_id);
 
-        setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
+        setButtonVisibility(loadDataButton ,false, Color.LTGRAY, Color.GRAY);
         checkEditTextEmptyAddListener();
         loadDataButtonAddListener();
+        sendPostButtonAddListener();
     }
 
-    // Disable the Button when the text Field is empty
-    private void setButtonVisibility(boolean isEnabled, int backgroundColor, int textColor) {
-        loadDataButton.setEnabled(isEnabled);
-        loadDataButton.setBackgroundColor(backgroundColor);
-        loadDataButton.setTextColor(textColor);
-    }
-
-    // Add on Click Listener to the Button
+    // Add on Click Listener to the Button for fetching data from the Internet
     private void loadDataButtonAddListener() {
         // Fetch JSON data from the Internet
         loadDataButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Add on Click Listener  to the Button for sending the Post Request
+    private void sendPostButtonAddListener() {
+        sendPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendPostIntent = new Intent(MainActivity.this, SendPostActivity.class);
+                startActivity(sendPostIntent);
+            }
+        });
+    }
+
     // Checking if the Edit Text is empty or not
     private void checkEditTextEmptyAddListener() {
         // Add a Listener for the Edit Text
@@ -84,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!postsNumberEditText.getText().toString().equals("")) {
-                    setButtonVisibility(true, Color.RED, Color.WHITE);
+                    setButtonVisibility(loadDataButton,true, Color.RED, Color.WHITE);
                 } else {
-                    setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
+                    setButtonVisibility(loadDataButton,false, Color.LTGRAY, Color.GRAY);
                 }
             }
         });
@@ -94,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Display the Posts fetched by calling the Retrofit API
     public void fetchPostsFromInternet() {
-        Retrofit retrofitBuilder = RetrofitUtility.getRetrofitClient();
-        PostInterface serviceInterface = retrofitBuilder.create(PostInterface.class);
-        Call<List<Post>> serviceCall = serviceInterface.getPosts();
+        Call<List<Post>> serviceCall = RetrofitUtility.getRetrofitServiceCall();
 
         serviceCall.enqueue(new Callback<List<Post>>() {
             @Override
@@ -117,10 +122,8 @@ public class MainActivity extends AppCompatActivity {
                         postsListView.setAdapter(new ArrayAdapter<>(getApplicationContext(), R.layout.list_view_text_color, R.id.list_view_text_color_id, posts));
 
                         getSinglePostDetails();
+                        setActivityView();
 
-                        postsNumberEditText.setEnabled(false);
-                        setButtonVisibility(false, Color.LTGRAY, Color.GRAY);
-                        linearLayout.setBackgroundColor(Color.DKGRAY);
                         Toast.makeText(MainActivity.this, "RESPONSE - POSTS NO: " + numberOfPosts, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(MainActivity.this, "RESPONSE - THERE ARE NO POSTS AVAILABLE!", Toast.LENGTH_SHORT).show();
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Register a Listener on List View click
+    // Register a Listener on List View Item click
     private void getSinglePostDetails() {
         postsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -161,5 +164,21 @@ public class MainActivity extends AppCompatActivity {
         sendIntent.putExtra("post_title", title);
         sendIntent.putExtra("post_body", body);
         startActivity(sendIntent);
+    }
+
+    // Disable/Enable the Button whether the text Field is empty or not
+    private void setButtonVisibility(Button button, boolean isEnabled, int backgroundColor, int textColor) {
+        button.setEnabled(isEnabled);
+        button.setBackgroundColor(backgroundColor);
+        button.setTextColor(textColor);
+    }
+
+    // Set Up the Activity Views
+    private void setActivityView() {
+        postsNumberEditText.setVisibility(View.GONE);
+        loadDataButton.setVisibility(View.GONE);
+        sendPostButton.setVisibility(View.VISIBLE);
+        setButtonVisibility(sendPostButton,true, Color.WHITE, Color.RED);
+        linearLayout.setBackgroundColor(Color.DKGRAY);
     }
 }
