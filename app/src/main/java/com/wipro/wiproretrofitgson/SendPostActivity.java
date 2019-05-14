@@ -57,11 +57,12 @@ public class SendPostActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Post> call, @NonNull Response<Post> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    int postId = response.body().getPostId(); // automatically injected by the Retrofit API
                     int userId = response.body().getPostUserId();
                     String postTitle = response.body().getPostTitle();
                     String postBody = response.body().getPostBody();
 
-                    Toast.makeText(SendPostActivity.this, "@POST RESPONSE SUCCESS!\nID: " + userId + "\nTITLE: " + postTitle + "\nBODY: " + postBody, Toast.LENGTH_LONG).show();
+                    Toast.makeText(SendPostActivity.this, "@POST RESPONSE SUCCESS!\nID: " + postId + "\nUSER ID: " + userId + "\nTITLE: " + postTitle + "\nBODY: " + postBody, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(SendPostActivity.this, "@POST RESPONSE FAILED!", Toast.LENGTH_SHORT).show();
                 }

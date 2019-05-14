@@ -34,8 +34,8 @@ public class Post {
     public String getPostBody() { return postBody; }
 
     // ************** Setter methods ****************
-    public void setPostId(int id) { this.postId = id; }
-    public void setPostUserId(int userId) { this.postUserId = userId; }
-    public void setPostTitle(String title) { this.postTitle = title; }
-    public void setPostBody(String body) { this.postBody = body; }
+//    public void setPostId(int id) { this.postId = id; }
+//    public void setPostUserId(int userId) { this.postUserId = userId; }
+//    public void setPostTitle(String title) { this.postTitle = title; }
+//    public void setPostBody(String body) { this.postBody = body; }
 }
