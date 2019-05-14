@@ -40,7 +40,6 @@ public class SendPostActivity extends AppCompatActivity {
                 boolean isValid = validateEditTexts(title, body);
 
                 if (isValid) {
-                    //Toast.makeText(SendPostActivity.this, "SUCCESS!\nTITLE: " + title + "\nBODY: " + body, Toast.LENGTH_SHORT).show();
                     sendPostRequest();
                 } else {
                     Toast.makeText(SendPostActivity.this, "ERROR: Title and Body are MANDATORY fields! Body must be OVER 5 characters!", Toast.LENGTH_SHORT).show();
@@ -51,15 +50,20 @@ public class SendPostActivity extends AppCompatActivity {
 
     // Send the @POST Request using the Retrofit 2 API
     private void sendPostRequest() {
-        Call<Post> serviceCallPostRequest = RetrofitUtility.getRetrofitServiceCall().createNewPost(5, title, body);
+        final int RANDOM_USER_ID = 5;
+        Call<Post> serviceCallPostRequest = RetrofitUtility.getRetrofitServiceCall().createNewPost(RANDOM_USER_ID, title, body);
 
         serviceCallPostRequest.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(@NonNull Call<Post> call, @NonNull Response<Post> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(SendPostActivity.this, "SUCCESS - Status Code " + response.code(), Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    int userId = response.body().getPostUserId();
+                    String postTitle = response.body().getPostTitle();
+                    String postBody = response.body().getPostBody();
+
+                    Toast.makeText(SendPostActivity.this, "@POST RESPONSE SUCCESS!\nID: " + userId + "\nTITLE: " + postTitle + "\nBODY: " + postBody, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(SendPostActivity.this, "RESPONSE - CANNOT SEND @POST REQUEST!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendPostActivity.this, "@POST RESPONSE FAILED!", Toast.LENGTH_SHORT).show();
                 }
             }
 
