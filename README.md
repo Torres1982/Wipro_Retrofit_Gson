@@ -15,11 +15,11 @@ them in a *List View*.
 
 ### Future Improvements:
 1. Click on each list view *Post* to display extended information about selected Post in a new Activity. UPDATED
-2. Write a *@Posts* Request. !!! NEEDS TO BE DONE !!!
+2. Write a *@Posts* Request. UPDATED
 3. Add the null check for the *response.body()* call. UPDATED
 4. Fixed access modifiers (set to private). UPDATED
 5. Refactor methods, so they allow for reusability (modular approach). UPDATED
-6. Create a separate method for forming the *Retrofit Builder*. UPDATED
+6. Create a separate *Retrofit* Utility Class. UPDATED
 
 ### Theory Concepts:
 1. What is a *RecyclerView* and what are the advantages of it over the *ListView*? DONE
